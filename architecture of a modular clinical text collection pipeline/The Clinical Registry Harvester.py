@@ -78,8 +78,8 @@ urls = [
     "https://www.medidata.com", "https://www.veeva.com", "https://www.oracle.com/industries/life-sciences",
     "https://www.arisglobal.com", "https://www.viedoc.com", "https://www.castoredc.com",
     "https://www.clincapture.com"
-]
-# Add your 100 URLs here
+] # Add your 100 URLs here
+
 final_results = []
 for link in urls:
     # 1. Get the website code
