@@ -1,167 +1,120 @@
-🎯 What You'll Learn
+🏥 Architecture of a Modular Clinical Text Collection Pipeline
 
-1.Explain the architecture of a modular clinical text collection pipeline
+A scalable, modular pipeline for harvesting, processing, and structuring clinical text data from registries and medical sources using AI-powered agents.
 
-2.Describe the five core modules: Downloader, Scraper, Extractor, Filter, and Storage
+📌 Overview
 
-3.Apply ethical data collection practices including PHI detection and politeness delays
+This pipeline is designed to collect clinical text from multiple registries, process it through specialized agents, and output structured, analysis-ready data. Each module is independent, making the system easy to maintain, extend, and debug.
 
-4.Implement keyword-based relevance filtering for clinical content
+🗂️ Project Structure
 
-5.Design comprehensive testing strategies achieving 85%+ code coverage
+architecture of a modular clinical text collection pipeline/
+│
+├── Clinical Research Agent V1.py       # Core agent for registry harvesting
+├── Clinical Research Agent V2.py       # Enhanced agent with extended capabilities
+├── clinical_agents.json                # Agent configuration and metadata
+└── README.md                           # Project documentation
 
-📋 Before You Begin
+🧩 Pipeline Modules
 
-1.Basic Python programming knowledge
+1. 🔍 Data Collection Layer
 
-2.Understanding of HTTP requests and web scraping concepts
+1.Connects to clinical registries (e.g., ClinicalTrials.gov, WHO ICTRP)
 
-3.Familiarity with regular expressions
+2.Harvests raw clinical text records via APIs or web scraping
 
-4.No prior clinical NLP experience required — beginner friendly
+3.Handles pagination, rate limiting, and retry logic
 
+2. 🤖 Agent Layer (clinical_agents.json)
 
---> Abstract
+1.Defines modular agents, each responsible for a specific registry or data source
 
-The scarcity of publicly available clinical text corpora poses significant challenges for natural language processing (NLP) research, particularly in domains requiring specialized medical language understanding. This paper presents Clinical Research Agent V1, an automated system for collecting, filtering, and curating publicly available clinical notes and discharge summaries from web sources.
+2.Agents are configurable via JSON — no hardcoding required
 
-The system employs a modular pipeline architecture comprising web scraping, keyword-based relevance filtering, PHI (Protected Health Information) detection, and structured storage mechanisms. Our approach emphasizes ethical data collection practices, including automatic rejection of content containing potential patient identifiers, politeness delays between HTTP requests, and strict adherence to website terms of service. The system achieves 85%+ test coverage with comprehensive unit and integration testing, ensuring reliability for research applications.
+3.Supports parallel execution for faster data collection
 
-1. Introduction
+3. 🧠 Processing Layer (Clinical Research Agent V1 / V2)
 
-1.1 Background and Motivation
-   
-Clinical natural language processing (NLP) has emerged as a critical field for extracting meaningful insights from unstructured medical text, enabling applications ranging from automated coding to clinical decision support. However, the development and evaluation of clinical NLP systems face a fundamental challenge: the limited availability of publicly accessible clinical text corpora.
+1.Parses and cleans raw clinical text
 
-Unlike domains such as news articles or scientific publications, clinical documents are subject to stringent privacy regulations (e.g., HIPAA in the United States, GDPR in Europe) that restrict their public dissemination. While resources like MIMIC-III (Medical Information Mart for Intensive Care) provide valuable critical care data, such datasets represent primarily Western clinical documentation styles and may not generalize well to other healthcare contexts.
+2.Extracts key fields: trial ID, title, condition, intervention, status, dates
 
-This limitation is particularly acute for research on Indian clinical text, where documentation patterns, abbreviations, and linguistic conventions differ substantially from Western corpora. Indian clinical notes frequently exhibit code-mixing, local abbreviations (e.g., "c/o" for "complains of", "h/o" for "history of"), and distinctive phrasing patterns that are underrepresented in existing training data.
+3.V2 adds NLP-based entity extraction and improved error handling
 
-1.2 Problem Statement
+4. 📦 Output Layer
 
-The primary challenge addressed by this work is the automated collection of publicly available clinical text while maintaining strict ethical standards and ensuring content relevance. Key requirements include:
+1.Outputs structured data in JSON / CSV format
 
-1.Automated Discovery: Identifying and accessing publicly available clinical documents from diverse web sources
+2.Ready for downstream analysis, ML training, or database ingestion
 
-2.Relevance Filtering: Distinguishing clinically relevant content from general medical information
 
-3.PHI Protection: Automatically detecting and rejecting content containing potential patient identifiers
+⚙️ How It Works
 
-4.Ethical Crawling: Respecting website policies and implementing politeness measures
+[Registry Sources]
+       │
+       ▼
+[Clinical Research Agent]  ←──  [clinical_agents.json config]
+       │
+       ▼
+[Text Parsing & Cleaning]
+       │
+       ▼
+[Structured Output (JSON/CSV)]
 
-5.Structured Output: Organizing collected data with comprehensive metadata for downstream research use
+🚀 Getting Started
 
+Prerequisites
 
-2. System Architecture
+bashpip install requests beautifulsoup4 pandas openai
 
-2.1 Overview
+Run the Agent
 
-Clinical Research Agent V1 implements a sequential pipeline architecture that processes seed URLs through multiple stages:
+bashpython "Clinical Research Agent V1.py"
 
-    Seed URLs → Scraper → Extractor → Filter → Storage → Output
-                             ↓
-                          PHI Check
-Figure 1: High-level system architecture showing the data flow from seed URLs to collected clinical samples.
+Configure Agents
 
-2.2 Component Modules
+Edit clinical_agents.json to add or modify registry sources:
 
-The system comprises five core modules, each implemented as an independent Python module to facilitate testing and maintenance:
+json{
 
+  "agents": [
+  
+    {
+    
+      "name": "ClinicalTrials Harvester",
+      
+      "source": "https://clinicaltrials.gov",
+      
+      "enabled": true,
+      
+      "output_format": "json"
+      
+    }
+    
+  ]
+  
+}
 
-📥 Downloader Module
-▼
+📋 Agent Versions
 
+| Version | File | Description |
+| :--- | :--- | :--- |
+| **V1** | `ClinicalResearchAgentV1.py` | Base harvesting agent with core registry support |
+| **V2** | `ClinicalResearchAgentV2.py` | Enhanced with NLP, better error handling, multi-source support |
 
+🛡️ Key Features
 
-🕷️ Scraper Module
-▼
+✅ Modular Design — Add new registry agents without touching core logic
 
+✅ JSON Configuration — Agents controlled via clinical_agents.json
 
-📄 Extractor Module
-▼
+✅ Versioned Agents — Incremental improvements without breaking changes
 
+✅ Scalable — Run agents in parallel for large-scale collection
 
+✅ Structured Output — Clean, analysis-ready data format
 
-🔍 Filter Module
-▼
 
+📄 License
 
-
-
-
-
-💾 Storage Module
-▼
-
-3. Testing Infrastructure
-
-The system includes a comprehensive test suite with 72 unit and integration tests:
-
-Unit Tests
-
-1.test_downloader.py: Tests for HTTP download functionality
-
-2.test_scraper.py: Tests for HTML parsing and link extraction
-
-3.test_extractor.py: Tests for PDF and text extraction
-
-4.test_filter.py: Tests for clinical relevance and PHI detection
-
-5.test_storage.py: Tests for file persistence
-
-Integration Tests
-
-test_pipeline.py: End-to-end pipeline tests with mocked HTTP responses
-
-All HTTP calls are mocked using the responses library, ensuring tests run without network access. Code coverage is enforced at a minimum of 80%.
-
-Test Coverage Results
-
-Module	           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       Coverage
-
-downloader.py      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;        	92%
-
-scraper.py	        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;          88%
-
-extractor.py         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;         85%
-
-filter.py          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;        	90%
-
-storage.py           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&nbsp;     	87%
-
-
-6. Ethical Considerations
-
-6.1 PHI Protection
-
-The system is designed with privacy-by-design principles:
-
-1.Automatic Rejection: Content containing PHI patterns is never stored
-
-2.Pattern-Based Detection: Regular expressions identify common identifier formats
-
-3.Conservative Approach: When in doubt, content is rejected rather than risk PHI collection
-
-6.2 Respectful Crawling
-
-The system implements several politeness measures:
-
-1.Configurable Delays: Politeness delays between HTTP requests (default: 2 seconds)
-
-2.User-Agent Identification: Clear identification as a research bot
-
-3.Size Limits: Prevents downloading excessively large files
-
-4.Error Handling: Graceful degradation on server errors
-
-6.3 Intended Use
-
-This tool is designed exclusively for academic research purposes:
-
-1.Collection of publicly available, de-identified clinical text
-
-2.NLP research on clinical language understanding
-
-3.Cross-cultural clinical NLP adaptation studies
-
-The tool is not intended for collecting PHI, commercial applications without appropriate approvals, or violating website terms of service.
+This project is intended for clinical research and academic use. Ensure compliance with the terms of service of each registry you access.
