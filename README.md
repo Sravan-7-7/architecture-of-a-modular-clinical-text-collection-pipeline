@@ -1,99 +1,24 @@
-🏥 Architecture of a Modular Clinical Text Collection Pipeline
+[Main_Portfolio_README.md](https://github.com/user-attachments/files/26610815/Main_Portfolio_README.md)
+# B.Tech CSE (AI)
 
-A scalable, modular pipeline for harvesting, processing, and structuring clinical text data from registries and medical sources using AI-powered agents.
+This repository serves as a centralized collection of my technical projects, research, and implementations as a **B.Tech Computer Science Engineering (Artificial Intelligence)** student. It documents my journey in building scalable data systems, performing advanced analytics, and exploring the foundations of AI.
 
-📌 Overview
+## 🌟 My Project
 
-This pipeline is designed to collect clinical text from multiple registries, process it through specialized agents, and output structured, analysis-ready data. Each module is independent, making the system easy to maintain, extend, and debug.
+### 1. [Architecture of a Modular Clinical Text Collection Pipeline](https://github.com/Sravan-7-7/architecture-of-a-modular-clinical-text-collection-pipeline)
+* **Description:** A high-performance, scalable Python architecture designed to automate the ingestion and structuring of clinical data.
+* **Key Features:** Modular ETL framework (Extract, Transform, Load), string sanitization, and data type enforcement.
+* **Tech Stack:** Python, Pandas, NumPy, BeautifulSoup4.
 
-🗂️ Project Structure
+### 2. Searchable Doctor's Prescription Database
+* **Description:** A system developed to organize and retrieve medical prescription data efficiently, focusing on data integrity and search optimization.
+* **Tech Stack:** Python, File I/O,
 
-architecture of a modular clinical text collection pipeline/
-│
-├── Clinical Research Agent V1.py       # Core agent for registry harvesting
-├── Clinical Research Agent V2.py       # Enhanced agent with extended capabilities
-├── clinical_agents.json                # Agent configuration and metadata
-└── README.md                           # Project documentation
-
-🧩 Pipeline Modules
-
-1. 🔍 Data Collection Layer
-
-1.Connects to clinical registries (e.g., ClinicalTrials.gov, WHO ICTRP)
-
-2.Harvests raw clinical text records via APIs or web scraping
-
-3.Handles pagination, rate limiting, and retry logic
-
-2. 🤖 Agent Layer (clinical_agents.json)
-
-1.Defines modular agents, each responsible for a specific registry or data source
-
-2.Agents are configurable via JSON — no hardcoding required
-
-3.Supports parallel execution for faster data collection
-
-3. 🧠 Processing Layer (Clinical Research Agent V1 / V2)
-
-1.Parses and cleans raw clinical text
-
-2.Extracts key fields: trial ID, title, condition, intervention, status, dates
-
-3.V2 adds NLP-based entity extraction and improved error handling
-
-4. 📦 Output Layer
-
-1.Outputs structured data in JSON / CSV format
-
-2.Ready for downstream analysis, ML training, or database ingestion
+### 3. Matplotlib Visualization Gallery
+* **Description:** Implementation of advanced data visualization techniques, specifically multi-series scatter plots and statistical trend analysis.
+* **Tech Stack:** Matplotlib, NumPy.
 
 
-⚙️ How It Works
-
-[Registry Sources]
-       │
-       ▼
-[Clinical Research Agent]  ←──  [clinical_agents.json config]
-       │
-       ▼
-[Text Parsing & Cleaning]
-       │
-       ▼
-[Structured Output (JSON/CSV)]
-
-🚀 Getting Started
-
-Prerequisites
-
-bashpip install requests beautifulsoup4 pandas openai
-
-Run the Agent
-
-bashpython "Clinical Research Agent V1.py"
-
-Configure Agents
-
-Edit clinical_agents.json to add or modify registry sources:
-
-json{
-
-  "agents": [
-  
-    {
-    
-      "name": "ClinicalTrials Harvester",
-      
-      "source": "https://clinicaltrials.gov",
-      
-      "enabled": true,
-      
-      "output_format": "json"
-      
-    }
-    
-  ]
-  
-}
 
 📋 Agent Versions
 
@@ -115,6 +40,29 @@ json{
 ✅ Structured Output — Clean, analysis-ready data format
 
 
-📄 License
+## 🛠️ Technical Skill Set
 
-This project is intended for clinical research and academic use. Ensure compliance with the terms of service of each registry you access.
+* **Programming:** Python 3.14 (Primary)
+* **Data Engineering:** ETL Pipeline Development, Web Scraping, Data Normalization.
+* **Data Science:** Data Visualization (Matplotlib), Data Manipulation (Pandas, NumPy).
+* **Environment: Git, CMD/Bash.
+
+## 🎓 Academic Profile
+
+* **University:** Om Sterling Global University (OSGU).
+* **Specialization:** Artificial Intelligence.
+* **Current Status:** 2nd Year, 4th Semester.
+* **Performance:** Current CGPA of 7.14, with a 3rd-semester SGPA of 7.38.
+
+## 🚀 Roadmap
+
+- [x] NumPy & Array Foundations
+- [x] Pandas for Data Wrangling
+- [x] Matplotlib for Visual Analytics
+- [ ] SQL & Database Management (Planned for Year 3)
+- [ ] Machine Learning with Scikit-Learn (Upcoming)
+
+## 👤 Contact
+**Sravan**
+* Email: [thesravann7@gmail.com](mailto:thesravann7@gmail.com)
+* GitHub: [Sravan-7-7](https://github.com/Sravan-7-7)
